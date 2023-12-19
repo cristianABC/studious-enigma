@@ -9,6 +9,8 @@ import { CharacterListComponent } from './character/character-list/character-lis
 import { CharacterCardComponent } from './character/character-card/character-card.component';
 import { StoreModule } from '@ngrx/store';
 import { characterReducer } from './store/characters/characters.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CharactersEffects } from './store/characters/characters.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +22,8 @@ import { characterReducer } from './store/characters/characters.reducer';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ characters: characterReducer })
+    StoreModule.forRoot({ characters: characterReducer }),
+    EffectsModule.forRoot([CharactersEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

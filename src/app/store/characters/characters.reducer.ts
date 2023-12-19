@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import {  list, search } from './characters.action';
+import {  list, listLoadSuccess, search } from './characters.action';
 import { Character } from 'src/app/character/character.model';
 
 export const initialState: Character[] = [];
 
 export const characterReducer = createReducer(
   initialState,
+  on(listLoadSuccess, (state) => state),
   on(list, (state) => [
           { id:1, name: 'Rick', image:'https://rickandmortyapi.com/api/character/avatar/1.jpeg', gender: 'male',  species:'humanoid' },
           { id:2,name: 'Morty', image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg', gender: 'male',  species:'humanoid'},
