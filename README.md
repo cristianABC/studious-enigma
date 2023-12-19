@@ -1,6 +1,6 @@
 # Code Challenge RickyMorty
 
-v.1.0.0 https://cristianabc.github.io/studious-enigma/ 
+v.1.0.0 https://cristianabc.github.io/studious-enigma/  
 v.2.0.0 In progress implementation NgRx branch ngrx 
 
 ## Design Decisions
