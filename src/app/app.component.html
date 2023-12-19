@@ -1,0 +1,16 @@
+<div class="app">
+  <header>
+    <div class="app_title">Rick and Morty</div>
+    <div class="app_search">
+      <input type="text" [(ngModel)]="searchText" (keyup.enter)="getCharacterByName()"/> 
+      <button (click)="getCharacterByName()" >Search</button>
+    </div>
+    <span *ngIf="error" class="app_error">{{error}}
+      <span class="app_error_cross" (click)="error = ''">X</span>
+    </span>
+  </header>
+  <main>
+    <app-character-list [characters]=characters></app-character-list>
+    <div class="loader" *ngIf="isLoading"></div>
+  </main>
+</div>
