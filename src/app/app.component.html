@@ -10,7 +10,7 @@
     </span>
   </header>
   <main>
-    <app-character-list [characters]=characters></app-character-list>
+    <app-character-list [characters]="characters$ | async" ></app-character-list>
     <div class="loader" *ngIf="isLoading"></div>
   </main>
 </div>

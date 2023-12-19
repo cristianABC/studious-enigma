@@ -2,6 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { CharacterService } from './character/character.service';
 import { Character } from './character/character.model';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { list, search } from './store/characters/characters.action';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +12,14 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'rickyMorty';
-  characters: Character[]= [];
+  characters$: Observable<Character[]>;
   pendingCharacters: Character[] = [];
   count:number = 1;
   searchText: string;
   isLoading: boolean = false;
   error: string;
 
-
+/* 
   @HostListener('window:scroll', ['$event']) // for window scroll events
   onScroll(event) {
     if(this.pendingCharacters.length > 0 && window.pageYOffset > 100 *this.count){
@@ -28,14 +30,17 @@ export class AppComponent {
         }
       })
     }
-  }
+  } */
 
-  constructor(private characterService: CharacterService){
-    this.isLoading = true;
-    this.characterService.getCharacters().subscribe((data)=>{
-      this.addScrollData(data.results);
+  constructor(private store: Store<{ characters: Character[] }>, private characterService: CharacterService){
+    this.characters$ = store.select('characters');
+    this.store.dispatch(list())
+    
+    /* this.isLoading = true; */
+    /* this.addScrollData(data.results); */
+    /* this.characterService.getCharacters().subscribe((data)=>{
       this.isLoading = false;
-    });
+    }); */
   }
   
   getCharacterByName(){
@@ -45,17 +50,18 @@ export class AppComponent {
     };
     this.error = '';
     this.isLoading = true;
-    this.characterService.getCharacterByName(this.searchText).subscribe((data)=>{
-      this.addScrollData(data.results);
+    this.store.dispatch(search());
+    /* this.addScrollData(data.results); */
+    /* this.characterService.getCharacterByName(this.searchText).subscribe((data)=>{
       this.isLoading = false;
     },(error)=>{
       this.isLoading = false;
       this.error = this.searchText + ' not found';
       this.searchText = '';
-    });
+    }); */
   }
 
-  addScrollData(data: Character[]){
+  /* addScrollData(data: Character[]){
     this.characters = [];
     this.pendingCharacters= [];
     data.forEach((character, index)=>{
@@ -68,5 +74,5 @@ export class AppComponent {
         this.pendingCharacters.push(character);
       }
   });
-  }
+  } */
 }
